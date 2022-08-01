@@ -1,6 +1,8 @@
 from flask import Flask  # Flask is a class (its uppercase)
 import os
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_login import LoginManager
 
 # Config section
 class Config():
@@ -18,8 +20,14 @@ app = Flask(__name__)  # app is an instance of Flask;
 app.config.from_object(Config)   
 # want to tell application to use config class we made. so app is instance of your application. 
 
-db = SQLAlchemy(app) #init my database manager (aka SQLALchemy) making instance of SQLAlchemy of that class and passed in into app.
+#init my database manager (aka SQLALchemy) 
+db = SQLAlchemy(app) #making instance of SQLAlchemy of that class and passed in into app.
 #Needs app configuration and context and everything about the app so it knows how to work.
+migrate = Migrate(app, db)
+
+#Register Plugin
+login = LoginManager(app)
+
 # routes
 @app.route('/')
 def index():
