@@ -18,7 +18,7 @@ app = Flask(__name__)  # app is an instance of Flask;
 app.config.from_object(Config)   
 # want to tell application to use config class we made. so app is instance of your application. 
 
-db = SQLAlchemy(app) #making instance of SQLAlchemy of that class and passed in into app.
+db = SQLAlchemy(app) #init my database manager (aka SQLALchemy) making instance of SQLAlchemy of that class and passed in into app.
 #Needs app configuration and context and everything about the app so it knows how to work.
 # routes
 @app.route('/')
