@@ -1,5 +1,6 @@
 from flask import Flask  # Flask is a class (its uppercase)
 import os
+from flask_sqlalchemy import SQLAlchemy
 
 # Config section
 class Config():
@@ -17,6 +18,8 @@ app = Flask(__name__)  # app is an instance of Flask;
 app.config.from_object(Config)   
 # want to tell application to use config class we made. so app is instance of your application. 
 
+db = SQLAlchemy(app) #making instance of SQLAlchemy of that class and passed in into app.
+#Needs app configuration and context and everything about the app so it knows how to work.
 # routes
 @app.route('/')
 def index():
