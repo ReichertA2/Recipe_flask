@@ -1,8 +1,11 @@
+
 from flask import Flask  # Flask is a class (its uppercase)
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager
+from flask_login import UserMixin
+from datetime import datetime as dt
+
 
 # Config section
 class Config():
@@ -25,10 +28,18 @@ db = SQLAlchemy(app) #making instance of SQLAlchemy of that class and passed in 
 #Needs app configuration and context and everything about the app so it knows how to work.
 migrate = Migrate(app, db)
 
-#Register Plugin
-login = LoginManager(app)
+#
 
-# routes
-@app.route('/')
-def index():
-    return "<h1>HI</h1>"
+class User(UserMixin, db.Model): #User is the name of the table and keep it 
+#singular; inherits from UserMixin; inherits from db as well. Every single 
+# database has to inherit db.model (outline for database table). 
+# UserMixin has to be first; has to be able 
+# to override anything from db.model.
+# Now make the columns of your table.
+    id = db.Column(db.Integer, primary_key=True)  #primary key
+    email
+    first_name
+    last_name
+    password
+    created_on
+
