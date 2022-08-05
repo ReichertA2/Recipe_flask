@@ -12,6 +12,8 @@ class Config():
     # Getting the secret key from the
     SECRET_KEY = os.environ.get('SECRET_KEY')
     # environment; os is a builtin from python
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
 
 # Initializing
 app = Flask(__name__)  # app is an instance of Flask;
@@ -28,7 +30,7 @@ db = SQLAlchemy(app) #making instance of SQLAlchemy of that class and passed in 
 #Needs app configuration and context and everything about the app so it knows how to work.
 migrate = Migrate(app, db)
 
-#
+
 
 class User(UserMixin, db.Model): #User is the name of the table and keep it 
 #singular; inherits from UserMixin; inherits from db as well. Every single 
@@ -37,9 +39,9 @@ class User(UserMixin, db.Model): #User is the name of the table and keep it
 # to override anything from db.model.
 # Now make the columns of your table.
     id = db.Column(db.Integer, primary_key=True)  #primary key
-    email
-    first_name
-    last_name
-    password
-    created_on
+    first_name = db.Column(db.String)
+    last_name = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
+    created_on = db.Column(db.DateTime, default=dt.utcnow)
 
