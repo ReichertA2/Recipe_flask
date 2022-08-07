@@ -45,3 +45,8 @@ class User(UserMixin, db.Model): #User is the name of the table and keep it
     password = db.Column(db.String)
     created_on = db.Column(db.DateTime, default=dt.utcnow)
 
+    #should return a unique identifying string
+    def __repr__(self):
+        return f'<User: {self.email} | {self.id}>'
+
+
