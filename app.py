@@ -41,7 +41,7 @@ class User(UserMixin, db.Model): #User is the name of the table and keep it
     id = db.Column(db.Integer, primary_key=True)  #primary key
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
-    email = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True, index=True)
     password = db.Column(db.String)
     created_on = db.Column(db.DateTime, default=dt.utcnow)
 
