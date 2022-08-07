@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import UserMixin
 from datetime import datetime as dt
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 # Config section
@@ -48,5 +49,13 @@ class User(UserMixin, db.Model): #User is the name of the table and keep it
     #should return a unique identifying string
     def __repr__(self):
         return f'<User: {self.email} | {self.id}>'
+        
+    #salts and hashes our password to make it hard to steal
+    def hash_password(self, original_password):
+        return generate_password_hash(original_password)
+
+    #compares the user password to the password provided in the login form
+    def check_hashed_password(self, login_password):
+        return check_password_hash(self.password, login_password)
 
 
